@@ -152,8 +152,13 @@ class Paginator(object):
         """
         limit = self.get_limit()
         offset = self.get_offset()
-        count = self.get_count()
         objects = self.get_slice(limit, offset)
+
+        if not limit:
+            count = len(objects)
+        else:
+            count = self.get_count()
+
         meta = {
             'offset': offset,
             'limit': limit,
